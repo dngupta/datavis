@@ -6,7 +6,7 @@
 function chrono_chart(chart_dom_id, json_url) {
 	
 	this.ctx = document.getElementById(chart_dom_id);
-	this.json_url = json_url; // base url for geo-json requests
+	this.json_url = "https://opencontext.org/subjects-search/United+States?chart=1&proj=52-digital-index-of-north-american-archaeology-dinaa&linked=dinaa-cross-ref#5/35.030/-88.264/10/tile/Google-Satellite"; // base url for geo-json requests
 	this.json_url = this.json_url.replace('&amp;', '&');
 	this.json_url = this.json_url.replace('response=geo-facet', 'response=chrono');
 	this.area_color_list = [
