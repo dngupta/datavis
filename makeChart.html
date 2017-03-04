@@ -8,13 +8,21 @@
 	
 	<!-- loads chart script and data -->
 	<script src = "/datavis/js/chrono-chart.js" ></script>
-
+	<script type= "text/javascript">
+	
+window.onload = function () {
+	var chart = new
+chrono-chart.Chart ("chrono-chart", {
+		title: {
+			text: "Graph data from Open Context"
+			}
+			});
+		chart.render();
+	</script>
 </head>
 
 <body>
-	<div>
-	<h1>Make a graph with data from Open Context</h1>
-	</div>
+	<div id="chrono-chart" style="display: block; width: 763px; height: 381px;" width="763" height="381"></div>
 
 	
 
