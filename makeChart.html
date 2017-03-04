@@ -7,24 +7,19 @@
 	<title>Make a graph with data from Open Context</title>
 	
 	<!-- loads chart script and data -->
+	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.min.js" ></script>
 	<script src = "/datavis/js/chrono-chart.js" ></script>
-	<script type= "text/javascript">
 	
-window.onload = function () {
-	var chart = new
-chrono-chart.Chart ("chrono-chart", {
-		title: {
-			text: "Graph data from Open Context"
-			}
-			});
-		chart.render();
-	</script>
 </head>
 
 <body>
 	<div id="chrono-chart" style="display: block; width: 763px; height: 381px;" width="763" height="381"></div>
-
 	
+	<script>
+	var ctx = document.getElementById("chrono-chart");
+    var chrono = new chrono_chart("chrono-chart", "https://opencontext.org/subjects-search/United+States.json?chart=1&proj=52-digital-index-of-north-american-archaeology-dinaa&linked=dinaa-cross-ref");
+    chrono.initialize();
+	</script>
 
 <!-- This is where filter will go -->
 <div>
