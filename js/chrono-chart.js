@@ -351,4 +351,47 @@ function chrono_chart(chart_dom_id, json_url) {
 		});
 		this.chart = act_chart;	
 	}
+	// functions for managing filters to exclude facets
+	this.exclude = function(){
+		var dom_id = 'exclude_id';
+		if(document.getElementById(dom_id)){
+			var dom = document.getElementById(dom_id);
+			var ex_id = dom.value;
+			if(this.exclude_facets_by_id.indexOf(ex_id) < 0){
+				// this exclude ID is not yet in the exclude list, so add it
+				this.exclude_facets_by_id.push(ex_id);
+				
+				// show the new excluded ID list in HTML
+				this.excluded_facet_ids_html();
+				
+				// now make the chart again, using this revised exclude list
+				this.make_chart();
+			}
+		}
+	}
+	this.exclude_dates = function(){
+	
+	}
+	this.clear_exclusions = function(){
+		// this function removes all current filters.
+		this.exclude_facets_by_id = []; // list of chrono-facet ids we don't want
+		this.exclude_earliest_after = null; // exclude earliest integer dates after this
+		this.exclude_latest_before = null;  // exclude lates integer dates before this
+		
+		// update the list of excluded IDs
+		this.excluded_facet_ids_html();
+	}
+	this.excluded_facet_ids_html = function(){
+		// shows a list of what the excluded facets are
+		var dom_id = 'excluded_ids';
+		if(document.getElementById(dom_id)){
+			var dom = document.getElementById(dom_id);
+			var html = '';
+			for (var i = 0, length = this.exclude_facets_by_id.length; i < length; i++) {
+				var id = this.exclude_facets_by_id[i];
+				html += '<li><a href="' + id + '" target="_blank">' + id + '</a></li>';
+			}
+			dom.innerHTML = html;
+		}
+	}
 }
