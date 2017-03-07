@@ -6,6 +6,9 @@
 	<meta name="viewport" width="device-width, initial-scale=1.0">
 	<title>Make a graph with data from Open Context</title>
 	
+	<!-- load Bootstrap CSS -->
+	<link rel="stylesheet" href="https://opencontext.org/static/bootstrap/3.3.4/css/bootstrap.min.css" />
+	
 	<!-- loads jquery for AJAX requests -->
 	<script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" ></script>
@@ -30,8 +33,41 @@
 	</script>
 
 <!-- This is where filter will go -->
-<div>
-<p>place holder for filtering</p>
+<div style="margin-top: 5%;">
+	<h3>Visualization Filters</h3>
+	<br/>
+	
+	<form class="form-inline">
+  		<div class="form-group">
+    			<label for="exclude_id">Exclude facet (id / url)</label>
+    			<input type="text" class="form-control" id="exclude_id" placeholder="Add ID for chronology facet to ignore">
+  		</div>
+  		<button type="submit" class="btn btn-default" onclick="chrono.exclude();">Add to Exclude List</button>
+	</form>
+	
+	<form class="form-inline">
+  		<div class="form-group">
+    			<label for="exclude_after">Exclude Start After</label>
+    			<input type="text" class="form-control" id="exclude_after" placeholder="">
+  		</div>
+		<div class="form-group">
+    			<label for="exclude_before">Exclude End Before</label>
+    			<input type="text" class="form-control" id="exclude_before" placeholder="">
+  		</div>
+  		<button type="submit" class="btn btn-default" onclick="chrono.exclude_dates();">Exclude by Date(s)</button>
+	</form>
+	
+	<br/>
+	<br/>
+	<h5>Excluded Facet IDs</h5>
+	<ul id="excluded_ids">
+	</ul>
+	
+	<br/>
+	<br/>
+	<h5>Reset the Visualization</h5>
+	<button type="submit" class="btn btn-default" onclick="chrono.clear_exclusions();">Remove Exclusions</button>
+	
 </div>
 
 </body>
