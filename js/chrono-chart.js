@@ -279,6 +279,7 @@ function chrono_chart(chart_dom_id, json_url) {
 	}
 	this.make_chart = function(){
 		var datasets = this.get_chart_datasets();
+			console.log(datasets);
 		var act_chart = new Chart(this.ctx,
 		{
 			type: 'line',
