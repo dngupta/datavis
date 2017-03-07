@@ -33,44 +33,49 @@
 	</script>
 
 <!-- This is where filter will go -->
-<div style="margin-top: 5%;">
+<div class="container-fluid" style="margin-top:5%;">
 	<h3>Visualization Filters</h3>
-	<br/>
-	
-	<form class="form-inline">
-  		<div class="form-group col-xs-6">
-    			<label for="exclude_id">Exclude facet (id / url)</label>
-    			<input type="text" class="form-control" id="exclude_id" placeholder="Add ID for chronology facet to ignore">
+  	<div class="row">
+		<div class="col-xs-3">
+			<label for="exclude_id">Exclude facet (id / url)</label>
+		</div>
+		<div class="col-xs-5">
+    			<input type="text" class="form-control" id="exclude_id" placeholder="Add ID for chronology facet to ignore" />
+			<h5>Excluded Facet IDs</h5>
+			<ul id="excluded_ids" class="small">
+			</ul>
   		</div>
-  		<button type="submit" class="btn btn-default" onclick="chrono.exclude(); return false;">Add to Exclude List</button>
-	</form>
-	
-	<br/>
-	<br/>
-	
-	<form class="form-inline">
-  		<div class="form-group col-xs-3">
-    			<label for="exclude_after">Exclude Start After</label>
-    			<input type="text" class="form-control" id="exclude_after" placeholder="">
+		<div class="col-xs-2">
+		</div>
+		<div class="col-xs-2">
+  			<button type="submit" class="btn btn-default" onclick="chrono.exclude(); return false;">Add to Exclude List</button>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 10%">
+		<div class="col-xs-2">
+			<label for="exclude_after">Exclude Start After</label>
+		</div>
+		<div class="col-xs-2">
+    			<input type="text" class="form-control" id="exclude_after" placeholder="" />
   		</div>
-		<div class="form-group col-xs-3">
-    			<label for="exclude_before">Exclude End Before</label>
+		<div class="col-xs-2">
+		</div>
+		<div class="col-xs-2">
+			<label for="exclude_before">Exclude End Before</label>
+		</div>
+		<div class="col-xs-2">
     			<input type="text" class="form-control" id="exclude_before" placeholder="">
   		</div>
-  		<button type="submit" class="btn btn-default" onclick="chrono.exclude_dates(); return false;">Exclude by Date(s)</button>
-	</form>
+		<div class="col-xs-2">
+  			<button type="submit" class="btn btn-default" onclick="chrono.exclude_dates(); return false;">Exclude by Date(s)</button>
+		</div>
+	</div>
 	
-	<br/>
-	<br/>
-	<h5>Excluded Facet IDs</h5>
-	<ul id="excluded_ids">
-	</ul>
-	
-	<br/>
-	<br/>
+	<!-- 
+        Disable, doesn't work
 	<h5>Reset the Visualization</h5>
 	<button type="submit" class="btn btn-default" onclick="chrono.clear_exclusions(); return false;">Remove Exclusions</button>
-	
+	-->
 </div>
 
 </body>
