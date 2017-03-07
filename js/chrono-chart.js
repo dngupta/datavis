@@ -424,7 +424,7 @@ function chrono_chart(chart_dom_id, json_url) {
 		return false; // so as not to reload the page
 	}
 	this.excluded_facet_ids_html = function(){
-		// shows a list of what the excluded facets are
+		// shows a list of what the excluded facets are in the page HTML
 		var dom_id = 'excluded_ids';
 		if(document.getElementById(dom_id)){
 			var dom = document.getElementById(dom_id);
