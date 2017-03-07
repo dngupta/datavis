@@ -38,23 +38,26 @@
 	<br/>
 	
 	<form class="form-inline">
-  		<div class="form-group">
+  		<div class="form-group col-xs-6">
     			<label for="exclude_id">Exclude facet (id / url)</label>
     			<input type="text" class="form-control" id="exclude_id" placeholder="Add ID for chronology facet to ignore">
   		</div>
-  		<button type="submit" class="btn btn-default" onclick="chrono.exclude();">Add to Exclude List</button>
+  		<button type="submit" class="btn btn-default" onclick="chrono.exclude(); return false;">Add to Exclude List</button>
 	</form>
 	
+	<br/>
+	<br/>
+	
 	<form class="form-inline">
-  		<div class="form-group">
+  		<div class="form-group col-xs-3">
     			<label for="exclude_after">Exclude Start After</label>
     			<input type="text" class="form-control" id="exclude_after" placeholder="">
   		</div>
-		<div class="form-group">
+		<div class="form-group col-xs-3">
     			<label for="exclude_before">Exclude End Before</label>
     			<input type="text" class="form-control" id="exclude_before" placeholder="">
   		</div>
-  		<button type="submit" class="btn btn-default" onclick="chrono.exclude_dates();">Exclude by Date(s)</button>
+  		<button type="submit" class="btn btn-default" onclick="chrono.exclude_dates(); return false;">Exclude by Date(s)</button>
 	</form>
 	
 	<br/>
@@ -66,7 +69,7 @@
 	<br/>
 	<br/>
 	<h5>Reset the Visualization</h5>
-	<button type="submit" class="btn btn-default" onclick="chrono.clear_exclusions();">Remove Exclusions</button>
+	<button type="submit" class="btn btn-default" onclick="chrono.clear_exclusions(); return false;">Remove Exclusions</button>
 	
 </div>
 

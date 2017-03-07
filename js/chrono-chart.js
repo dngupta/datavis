@@ -91,6 +91,7 @@ function chrono_chart(chart_dom_id, json_url) {
 				if(id == exclude_id){
 					// the id matches an ID we don't want to include, so exclude it
 					include_ok = false;
+					break;
 				}
 			}
 			if(isNaN(this.exclude_earliest_after) == false){
@@ -353,6 +354,7 @@ function chrono_chart(chart_dom_id, json_url) {
 	}
 	// functions for managing filters to exclude facets
 	this.exclude = function(){
+		// adds user input of chronology facets to exclude
 		var dom_id = 'exclude_id';
 		if(document.getElementById(dom_id)){
 			var dom = document.getElementById(dom_id);
@@ -368,9 +370,38 @@ function chrono_chart(chart_dom_id, json_url) {
 				this.make_chart();
 			}
 		}
+		return false; // so as not to reload the page
 	}
 	this.exclude_dates = function(){
-	
+		// adds user input of dates to exclude
+		var after_dom_id = 'exclude_after';
+		var before_dom_id = 'exclude_before';
+		if(document.getElementById(after_dom_id) && document.getElementById(before_dom_id)){
+			var input_ok = false;
+			var after_dom = document.getElementById(after_dom_id);
+			var before_dom = document.getElementById(before_dom_id);
+			if(isNaN(after_dom.value)){
+				// not a number, so can't use.
+				after_dom.value = '';
+			}
+			else{
+				this.exclude_earliest_after = after_dom.value;
+				input_ok = true;
+			}
+			if(isNaN(before_dom.value)){
+				// not a number, so can't use.
+				before_dom.value = '';
+			}
+			else{
+				this.exclude_latest_before = before_dom.value;
+				input_ok = true;
+			}
+			if(input_ok){
+				// update the chart with the exclusion date(s)
+				this.make_chart();
+			}
+		}
+		return false; // so as not to reload the page
 	}
 	this.clear_exclusions = function(){
 		// this function removes all current filters.
@@ -380,9 +411,20 @@ function chrono_chart(chart_dom_id, json_url) {
 		
 		// update the list of excluded IDs
 		this.excluded_facet_ids_html();
+		
+		// clear exclusion dates
+		var after_dom_id = 'exclude_after';
+		var before_dom_id = 'exclude_before';
+		if(document.getElementById(after_dom_id) && document.getElementById(before_dom_id)){
+			var after_dom = document.getElementById(after_dom_id);
+			var before_dom = document.getElementById(before_dom_id);
+			after_dom.value = '';
+			before_dom.value = '';
+		}
+		return false; // so as not to reload the page
 	}
 	this.excluded_facet_ids_html = function(){
-		// shows a list of what the excluded facets are
+		// shows a list of what the excluded facets are in the page HTML
 		var dom_id = 'excluded_ids';
 		if(document.getElementById(dom_id)){
 			var dom = document.getElementById(dom_id);
