@@ -22,6 +22,12 @@ function chrono_chart(chart_dom_id, json_url) {
 		'#B22A00'
 	]; // list of colors for gradients
 	
+	// these are used to exclude certain chrono facets,
+	// to experiment with how removing outliers etc. impact visualization
+	this.exclude_facets_by_id = []; // list of chrono-facet ids we don't want
+	this.exclude_earliest_after = null; // exclude earliest integer dates after this
+	this.exclude_latest_before = null;  // exclude lates integer dates before this
+	
 	this.current_y_at_x = {};
 	this.curent_year_keys = [];
 	this.json_data = null;
@@ -73,6 +79,43 @@ function chrono_chart(chart_dom_id, json_url) {
 		var max_c_per_year = 0;
 		var all_min_year = null;
 		var all_max_year = null;
+		
+		//now remove chrono_facets based on selection criteria
+		var limited_chrono_facets = [];
+		for (var i = 0, length = chrono_facets.length; i < length; i++) {
+			var include_ok = true; // default to including the ID
+			var chrono = chrono_facets[i];
+			var id = chrono.id;
+			for(var j = 0, l_length = this.exclude_facets_by_id.length; j < l_length; j++) {
+				var exclude_id = this.exclude_facets_by_id[j]; // the id we don't want
+				if(id == exclude_id){
+					// the id matches an ID we don't want to include, so exclude it
+					include_ok = false;
+				}
+			}
+			if(isNaN(this.exclude_earliest_after) == false){
+				// the exclude_earliest_ater is a number
+				if(parseFloat(chrono['start']) > this.exclude_earliest_after){
+					// the chrono facet start is after the exclude value
+					include_ok = false;
+				}
+			}
+			if(isNaN(this.exclude_latest_before) == false){
+				// the exclude_earliest_before is a number
+				if(parseFloat(chrono['stop']) < this.exclude_latest_before){
+					// the chrono facet stop is before the exclude value
+					include_ok = false;
+				}
+			}
+			if(include_ok){
+				// the chrono facet was OK, not subject to any limits
+				limited_chrono_facets.push(chrono); 
+			}
+		}
+		
+		// now make the chrono facets the chrono_facets not subject to any limits
+		var chrono_facets = limited_chrono_facets;
+		
 		for (var i = 0, length = chrono_facets.length; i < length; i++) {
 			var chrono = chrono_facets[i];
 			var id = chrono.id;
