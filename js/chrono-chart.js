@@ -152,13 +152,17 @@ function chrono_chart(chart_dom_id, json_url) {
 		var	keys_sorted = Object.keys(list).sort(function(a,b){return list[a]-list[b]});
 		keys_sorted.reverse();
 		// keys_sorted.sort();
-		console.log(keys_sorted);
+		// console.log(keys_sorted);
 		
 		// datasets
 		var datasets = [];
 		this.make_current_y_at_x(all_min_year, all_max_year);
 		var all_t_span = Math.abs(all_max_year - all_min_year);
 		var chart_count_year = max_count / all_t_span;
+		var nearest = 25;
+		if(all_t_span > 2000){
+			nearest = Math.ceil(Math.log10(all_t_span)) * 100 / 2;
+		}
 		for (var i = 0, length = keys_sorted.length; i < length; i++) {
 			var key = keys_sorted[i];
 			var chrono = chrono_objs[key];
@@ -198,7 +202,12 @@ function chrono_chart(chart_dom_id, json_url) {
 			// dataset.borderColor = l_hex_color;
 			dataset.borderColor = l_gradient;
 			dataset.borderStrokeColor = "#fff";
-			dataset.label = chrono['start'] + ' to ' + chrono['stop'];
+			dataset.label = this.round_date(nearest, chrono['start']);
+			dataset.label += ' to ';
+			dataset.label += this.round_date(nearest, chrono['stop']);
+			dataset.label += ' (';
+			dataset.label += chrono.count;
+			dataset.label += ' items)';
 			dataset.data = this.make_data_points(chart_count_year, 
 							     prop_max_c_per_year,
 							     chrono);
@@ -206,6 +215,11 @@ function chrono_chart(chart_dom_id, json_url) {
 		} 
 		
 		return datasets;
+	}
+	this.round_date = function(nearest, date){
+		var n_date = parseFloat(date);
+		var rounded = n_date + nearest/2 - (n_date + nearest/2) % nearest;
+		return rounded;
 	}
 	this.make_grandient_object = function(hex_color){
 		// makes a gradient object for a color hex string
@@ -304,7 +318,7 @@ function chrono_chart(chart_dom_id, json_url) {
 	}
 	this.make_chart = function(){
 		var datasets = this.get_chart_datasets();
-			console.log(datasets);
+		// console.log(datasets);
 		var act_chart = new Chart(this.ctx,
 		{
 			type: 'line',
@@ -315,6 +329,17 @@ function chrono_chart(chart_dom_id, json_url) {
 			options: {
 				legend: {
 					display: false,
+				},
+				tooltips: {
+					callbacks: {
+						label: function(tooltipItems, data){
+							// console.log(data.datasets[tooltipItems.datasetIndex].label);
+							return data.datasets[tooltipItems.datasetIndex].label;
+						},
+						title: function(){
+							return 'Estimated Time Span';
+						}
+					},
 				},
 				scales: {
 					yAxes: [{
@@ -415,6 +440,15 @@ function chrono_chart(chart_dom_id, json_url) {
 				html += '<li><a href="' + id + '" target="_blank">' + id + '</a></li>';
 			}
 			dom.innerHTML = html;
+		}
+	}
+	this.reload = function(){
+		var dom_id = 'oc_url';
+		if(document.getElementById(dom_id)){
+			var dom = document.getElementById(dom_id);
+			var oc_url = dom.value;
+			var reload_url = 'makeChart.html?oc-search=' + encodeURIComponent(oc_url);
+			window.location = reload_url;
 		}
 	}
 }
