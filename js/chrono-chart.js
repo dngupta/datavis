@@ -291,7 +291,7 @@ function chrono_chart(chart_dom_id, json_url) {
 			data_list.push(data_point);
 		}
 		// console.log(this.current_y_at_x);
-		console.log(data_list);
+		// console.log(data_list);
 		return data_list;
 	}
 	this.gaussian = function(x, mean, sigma) {
