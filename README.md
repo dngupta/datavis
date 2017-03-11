@@ -3,6 +3,6 @@ Development space for data visualization and navigation in large digital collect
 
 The project uses Open Context's API services (https://opencontext.org/about/services) to grab data (GeoJSON). Current focus is on making explicit 'uneven-ness' in digital archaeological collections. The first tool developed here is a visualization filter that enables an archaeologist to exclude data records from a selection or query.
 
-# Check the demo here: https://dngupta.github.io/datavis/makeChart 
+# H3 Check the demo here: https://dngupta.github.io/datavis/makeChart 
 
 To replicate this visualization, fork the repo or download source code located in js
